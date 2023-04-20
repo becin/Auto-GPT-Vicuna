@@ -31,7 +31,7 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
             self.vicuna_weights,
             device=self.device,
             num_gpus=1,
-            debug=False,
+            debug=True,
             load_8bit=self.load_8bit,
         )
         self.model = model
