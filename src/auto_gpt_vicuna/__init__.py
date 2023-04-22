@@ -312,13 +312,12 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
             max_tokens (int): The max tokens.
 
         Returns:
-            str: The resulting response.
+            str: The resulting response."""
 	
-	#prompt = post_prompt(self, prompt)
-	roles = {message["role"] for message in messages}
+        roles = {message["role"] for message in messages}
         last_message = messages.pop()["content"]
         conv = make_conversation(
-            prompt,
+            "",
             list(roles),
             [(message["role"], message["content"]) for message in messages],
         )
@@ -335,4 +334,4 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
                 last_message,
                 temperature,
                 max_tokens,
-            )"""
+            )
