@@ -79,23 +79,22 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
         jsonFormat = f"""Always use the following format for your responses:
 
 {{{
-    'command': {{{
+    'command': {
         'name': 'command name',
-        'args': {{{
+        'args': {
             'arg name': 'value'
-        }}}
-    }}},
+        }
+    },
     'thoughts':
-    {{{
+    {
         'text': 'thought',
         'reasoning': 'reasoning',
         'plan': '- short bulleted{new_line}- list that conveys{new_line}- long-term plan',
         'criticism': 'constructive self-criticism',
         'speak': 'thoughts summary to say to user'
-    }}}
+    }
 }}}"""
-        prompt.add_constraint(jsonFormat
-        )
+        prompt.add_constraint(jsonFormat)
     
         #prompt.add_constraint(
             #"~4000 word limit for short term memory. Your short term memory is short, so"
