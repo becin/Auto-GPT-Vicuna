@@ -10,6 +10,9 @@ from auto_gpt_plugin_template import AutoGPTPluginTemplate
 
 import torch
 
+from autogpt.prompts.generator import PromptGenerator
+from autogpt.commands import analyze_code, execute_code, google_search, improve_code, file_operations, web_selenium, web_requests, write_tests
+
 PromptGenerator = TypeVar("PromptGenerator")
 
 
@@ -25,7 +28,7 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
         self._description = "This is a Vicuna local model plugin."
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.vicuna_weights = os.environ.get("VICUNA_WEIGHTS", "")
-        self.load_8bit = os.environ.get("LOAD_8BIT", False)
+        self.load_8bit = os.environ.get("LOAD_8BIT", True)
 
         model, tokenizer = load_model(
             self.vicuna_weights,
@@ -57,7 +60,7 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
 
         Returns:
             bool: True if the plugin can handle the post_prompt method."""
-        return False
+        return True
 
     def post_prompt(self, prompt: PromptGenerator) -> PromptGenerator:
         """This method is called just after the generate_prompt is called,
@@ -69,7 +72,81 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
         Returns:
             PromptGenerator: The prompt generator.
         """
-        pass
+
+	# Pull basic info about the AI from the config
+
+	#prompt.goals = self.ai_goals
+	#prompt.name = self.ai_name
+	#prompt.role = self.ai_role
+	#prompt.command_registry = self.command_registry
+
+	# Add constraints to the PromptGenerator object
+
+	prompt.add_constraint(
+        "All output must be in format that can be read by Python json.loads, always"
+        " ensure output is in the proper format so it can be read."
+	 )
+
+	prompt.add_constraint(
+        "~4000 word limit for short term memory. Your short term memory is short, so"
+        " immediately save important information to files."
+   	 )
+        prompt.add_constraint(
+        "If you are unsure how you previously did something or want to recall past"
+        " events, thinking about similar events will help you remember."
+   	 )
+        prompt.add_constraint("No user assistance")
+        #prompt.add_constraint(
+        #'Exclusively use the commands listed in double quotes e.g. "command name"'
+    	# )
+
+    # Define the command list
+        #commands = [
+        #("Do Nothing", "do_nothing", {}),
+        #("Task Complete (Shutdown)", "task_complete", {"reason": "<reason>"}),
+	#("Analyze Code", "analyze_code", {"code": "<full_code_string>"}),
+	#("Execute Code", "execute_code", {"code": "<full_code_string>"}),
+	#("File Operations", "file_operations", {}),
+	#("Google Search", "google_search", {"query": "<query>"}),
+	#("Improve Code", "improve_code", {"suggestions": "<list_of_suggestions>", "code": "<full_code_string>"}),
+	#("Web Requests", "web_requests", {}),
+	#("Web Selenium", "web_selenium", {"url": "<url>", "question": "<what_you_want_to_find_on_website>"})
+    	#]
+
+    # Add commands to the PromptGenerator object
+        #for command_label, command_name, args in commands:
+        #prompt.add_command(command_label, command_name, args)
+
+    # Add resources to the PromptGenerator object
+        prompt.add_resource(
+        "Internet access for searches and information gathering."
+    	)
+        prompt.add_resource("Long Term memory management.")
+        prompt.add_resource(
+        "Vicuna powered Agents for delegation of simple tasks."
+    	)
+        prompt.add_resource("File output.")
+
+    # Add performance evaluations to the PromptGenerator object
+        prompt.add_performance_evaluation(
+        "Continuously review and analyze your actions to ensure you are performing to"
+        " the best of your abilities."
+    	)
+        prompt.add_performance_evaluation(
+        "Constructively self-criticize your big-picture behavior constantly."
+    	)
+        prompt.add_performance_evaluation(
+        "Reflect on past decisions and strategies to refine your approach."
+    	)
+        prompt.add_performance_evaluation(
+        "Every command has a cost, so be smart and efficient. Aim to complete tasks in"
+        " the least number of steps."
+    	)
+        prompt.add_performance_evaluation("Write all code to a file.")
+
+	
+	return prompt
+
 
     def can_handle_on_planning(self) -> bool:
         """This method is called to check that the plugin can
@@ -245,11 +322,12 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
 
         Returns:
             str: The resulting response.
-        """
-        roles = {message["role"] for message in messages}
+	
+	#prompt = post_prompt(self, prompt)
+	roles = {message["role"] for message in messages}
         last_message = messages.pop()["content"]
         conv = make_conversation(
-            "",
+            prompt,
             list(roles),
             [(message["role"], message["content"]) for message in messages],
         )
