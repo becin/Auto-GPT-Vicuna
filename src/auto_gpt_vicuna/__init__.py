@@ -132,9 +132,9 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
           " the least number of steps."
         )
         prompt.add_performance_evaluation("Write all code to a file.")
-  
-    
+        
         return prompt
+        
 
 
     def can_handle_on_planning(self) -> bool:
@@ -311,11 +311,11 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
 
         Returns:
             str: The resulting response."""
-        prompt = self.post_prompt(PromptGenerator)
+      
         roles = {message["role"] for message in messages}
         last_message = messages.pop()["content"]
         conv = make_conversation(
-            prompt,
+            "",
             list(roles),
             [(message["role"], message["content"]) for message in messages],
         )
