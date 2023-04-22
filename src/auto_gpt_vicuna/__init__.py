@@ -8,7 +8,7 @@ from auto_vicuna.chat import chat_one_shot
 from auto_vicuna.conversation import make_conversation
 from auto_gpt_plugin_template import AutoGPTPluginTemplate
 
-from autogpt.agent import system_prompt
+from autogpt.agent.agent import system_prompt
 
 import torch
 
