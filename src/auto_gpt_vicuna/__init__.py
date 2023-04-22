@@ -10,8 +10,6 @@ from auto_gpt_plugin_template import AutoGPTPluginTemplate
 
 import torch
 
-from autogpt.prompts.generator import PromptGenerator
-from autogpt.commands import analyze_code, execute_code, google_search, improve_code, file_operations, web_selenium, web_requests, write_tests
 
 PromptGenerator = TypeVar("PromptGenerator")
 
@@ -313,8 +311,7 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
 
         Returns:
             str: The resulting response."""
-      
-        prompt = self.post_prompt(self)
+        prompt = self.post_prompt(PromptGenerator)
         roles = {message["role"] for message in messages}
         last_message = messages.pop()["content"]
         conv = make_conversation(
