@@ -8,8 +8,6 @@ from auto_vicuna.chat import chat_one_shot
 from auto_vicuna.conversation import make_conversation
 from auto_gpt_plugin_template import AutoGPTPluginTemplate
 
-from autogpt.agent.agent import system_prompt
-
 import torch
 
 
@@ -317,7 +315,7 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
         roles = {message["role"] for message in messages}
         last_message = messages.pop()["content"]
         conv = make_conversation(
-            system_prompt,
+            "",
             list(roles),
             [(message["role"], message["content"]) for message in messages],
         )
