@@ -75,8 +75,7 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
             "All output must be in format that can be read by Python json.loads, always"
             " ensure output is in the proper format so it can be read."
     	 )
-        jsonFormat = f"""Always use the following format for your responses:
-
+        prompt.add_constraint(f"""Always use the following format for your responses:
 {{{
     'command': {
         'name': 'command name',
@@ -89,13 +88,12 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
         'text': 'thought',
         'reasoning': 'reasoning',
         'plan': '- short bulleted
-      - list that conveys
-      - long-term plan',
+      -list that conveys  
+      -long-term plan',
         'criticism': 'constructive self-criticism',
         'speak': 'thoughts summary to say to user'
     }
-}}}"""
-        prompt.add_constraint(jsonFormat)
+}}}""")
     
         #prompt.add_constraint(
             #"~4000 word limit for short term memory. Your short term memory is short, so"
