@@ -75,7 +75,7 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
             "All output must be in format that can be read by Python json.loads, always"
             " ensure output is in the proper format so it can be read."
     	 )
-        jsonFormat = str(f"""Always use the following format for your responses:
+        jsonFormat = f"""Always use the following format for your responses:
 
 {{{
     'command': {
@@ -88,8 +88,7 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
     {
         'text': 'thought',
         'reasoning': 'reasoning',
-        'plan': 
-      '- short bulleted
+        'plan': '- short bulleted
       - list that conveys
       - long-term plan',
         'criticism': 'constructive self-criticism',
