@@ -78,22 +78,23 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
         prompt.add_constraint(
             f"""Always use the following format for your responses:
 
-{
-    'command': {
+{{{
+    'command': {{{
         'name': 'command name',
-        'args': {
+        'args': {{{
             'arg name': 'value'
-        }
-    },
+        }}}
+    }}},
     'thoughts':
-    {
+    {{{
         'text': 'thought',
         'reasoning': 'reasoning',
-        'plan': ''- short bulleted\n- list that conveys\n- long-term plan',
+        'plan': '- short bulleted\n- list that conveys\n- long-term plan',
         'criticism': 'constructive self-criticism',
         'speak': 'thoughts summary to say to user'
-    }
-}"""
+    }}}
+}}}
+"""
         )
     
         #prompt.add_constraint(
