@@ -335,4 +335,4 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
                 last_message,
                 temperature,
                 max_tokens,
-            )
+            )"""
