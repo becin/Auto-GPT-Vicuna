@@ -74,27 +74,26 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
         prompt.add_constraint(
             "All output must be in format that can be read by Python json.loads, always ensure output is in the proper format so it can be read."
     	 )
-        prompt.add_constraint(f"""Always use the following json format for your response:
-{{{
-    'command': {
-        'name': 'command name',
-        'args': {
-            'arg name': 'value'
+        jsonSchema = """
+{
+    "command": {
+        "name": "command name",
+        "args": {
+            "arg name": "value"
         }
     },
-    'thoughts':
+    "thoughts":
     {
-        'text': 'thought',
-        'reasoning': 'reasoning',
-        'plan': '- short bulleted
-        - list that conveys
-        - long-term plan',
-        'criticism': 'constructive self-criticism',
-        'speak': 'thoughts summary to say to user'
+        "text": "thought",
+        "reasoning": "reasoning",
+        "plan": "- short bulleted\n- list that conveys\n- long-term plan",
+        "criticism": "constructive self-criticism",
+        "speak": "thoughts summary to say to user"
     }
-}}}
-
-""")
+}
+"""
+      
+        prompt.add_constraint(jsonSchema)
     
         #prompt.add_constraint(
             #"~4000 word limit for short term memory. Your short term memory is short, so"
