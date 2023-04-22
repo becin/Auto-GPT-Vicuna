@@ -94,7 +94,7 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
         'criticism': 'constructive self-criticism',
         'speak': 'thoughts summary to say to user'
     }
-}}}""")
+}}}"""
         prompt.add_constraint(jsonFormat)
     
         #prompt.add_constraint(
