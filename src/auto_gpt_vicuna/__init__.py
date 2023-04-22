@@ -87,26 +87,26 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
           " events, thinking about similar events will help you remember."
        )
         prompt.add_constraint("No user assistance")
-          #prompt.add_constraint(
-          #'Exclusively use the commands listed in double quotes e.g. "command name"'
-        # )
+        prompt.add_constraint(
+          'Exclusively use the commands listed in double quotes e.g. "command name"'
+         )
   
       # Define the command list
-          #commands = [
-          #("Do Nothing", "do_nothing", {}),
-          #("Task Complete (Shutdown)", "task_complete", {"reason": "<reason>"}),
-    #("Analyze Code", "analyze_code", {"code": "<full_code_string>"}),
-    #("Execute Code", "execute_code", {"code": "<full_code_string>"}),
-    #("File Operations", "file_operations", {}),
-    #("Google Search", "google_search", {"query": "<query>"}),
-    #("Improve Code", "improve_code", {"suggestions": "<list_of_suggestions>", "code": "<full_code_string>"}),
-    #("Web Requests", "web_requests", {}),
-    #("Web Selenium", "web_selenium", {"url": "<url>", "question": "<what_you_want_to_find_on_website>"})
-        #]
+        commands = [
+          ("Do Nothing", "do_nothing", {}),
+          ("Task Complete (Shutdown)", "task_complete", {"reason": "<reason>"}),
+    ("Analyze Code", "analyze_code", {"code": "<full_code_string>"}),
+    ("Execute Code", "execute_code", {"code": "<full_code_string>"}),
+    ("File Operations", "file_operations", {}),
+    ("Google Search", "google_search", {"query": "<query>"}),
+    ("Improve Code", "improve_code", {"suggestions": "<list_of_suggestions>", "code": "<full_code_string>"}),
+    ("Web Requests", "web_requests", {}),
+    ("Web Selenium", "web_selenium", {"url": "<url>", "question": "<what_you_want_to_find_on_website>"})
+        ]
   
       # Add commands to the PromptGenerator object
-          #for command_label, command_name, args in commands:
-          #prompt.add_command(command_label, command_name, args)
+        for command_label, command_name, args in commands:
+          prompt.add_command(command_label, command_name, args)
   
       # Add resources to the PromptGenerator object
         prompt.add_resource(
