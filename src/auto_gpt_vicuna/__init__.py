@@ -93,7 +93,7 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
 }
 """
       
-        prompt.add_constraint(jsonSchema)
+        prompt.add_constraint(f"Always use the following format to ensure json can be read: {jsonSchema}")
     
         #prompt.add_constraint(
             #"~4000 word limit for short term memory. Your short term memory is short, so"
