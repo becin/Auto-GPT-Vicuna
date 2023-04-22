@@ -94,7 +94,7 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
 """
       
         prompt.add_constraint(f"Always use only the following output format to ensure json can be read: '{jsonSchema}'")
-        prompt.add_constraint("only output beginning with '{'")
+        prompt.add_constraint("only output beginning with '{', and ending with '}'")
         prompt.add_constraint("only use the following commands, and only select commands in double quotes, never any other commands:")
     
         #prompt.add_constraint(
