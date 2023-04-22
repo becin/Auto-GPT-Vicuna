@@ -313,11 +313,11 @@ class AutoGPTPVicuna(AutoGPTPluginTemplate):
 
         Returns:
             str: The resulting response."""
-	
+        prompt = self.post_prompt()
         roles = {message["role"] for message in messages}
         last_message = messages.pop()["content"]
         conv = make_conversation(
-            "",
+            prompt,
             list(roles),
             [(message["role"], message["content"]) for message in messages],
         )
